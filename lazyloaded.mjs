@@ -64,7 +64,7 @@ export class LazyLoaded {
       }
     
       if (isFunction(this.callback)) this.callback(elem)
-      elem.classNames.add(`${this.selector}--loaded`)
+      elem.classList.add(`${this.selector}--loaded`)
     })
   }
 
