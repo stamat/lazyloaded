@@ -1,13 +1,14 @@
 {
   "name": "lazyloaded",
   "version": "1.0.0",
-  "description": "Lazy loading images with IntersectionObserver",
+  "description": "Lazy loading images responsively with IntersectionObserver",
   "keywords": [
     "lazyload",
     "esm",
     "esmodule",
     "lazyload-images",
-    "intersection-observer"
+    "intersection-observer",
+    "responsive-images"
   ],
   "main": "lazyloaded.mjs",
   "style": "lazyloaded.scss",
