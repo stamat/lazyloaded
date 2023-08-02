@@ -1,0 +1,36 @@
+{
+  "name": "lazyloaded",
+  "version": "1.0.0",
+  "description": "Lazy loading images with IntersectionObserver",
+  "keywords": [
+    "lazyload",
+    "esm",
+    "esmodule",
+    "lazyload-images",
+    "intersection-observer"
+  ],
+  "main": "lazyloaded.mjs",
+  "style": "lazyloaded.scss",
+  "author": "Nikola Stamatovic <@stamat>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stamat/lazyloaded.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stamat/lazyloaded/issues"
+  },
+  "homepage": "https://github.com/stamat/lazyloaded",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "jest": "^29.6.1",
+    "jest-environment-jsdom": "^29.6.1",
+    "poops": "^1.0.10"
+  },
+  "dependencies": {
+    "book-of-spells": "^1.0.5"
+  }
+}
