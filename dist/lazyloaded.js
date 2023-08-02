@@ -74,7 +74,7 @@
         }
         if (isFunction(this.callback))
           this.callback(elem);
-        elem.classList.add(`${this.selector}--loaded`);
+        elem.classList.add("lazyloaded--loaded");
       });
     }
     loadAll(elements) {
