@@ -20,6 +20,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  backface-visibility: hidden;
 
   &:not([data-background="true"]) {
     width: 100%;
@@ -46,6 +47,7 @@
   transform: scale(1.03);
   filter: blur(5px);
   z-index: 1;
+  backface-visibility: hidden;
 
   &.image-element {
     width: 100%;
