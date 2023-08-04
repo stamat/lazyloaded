@@ -9,7 +9,7 @@
     "format": "iife",
     "target": "es2019",
     "mangle": true,
-    "globalName": "focusOutline"
+    "globalName": "LazyLoaded"
   }
   }],
   "styles": [{
