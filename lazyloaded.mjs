@@ -126,7 +126,7 @@ export class LazyLoaded {
       goal = this.px_ratio;
     }
   
-    return closestNumber(sizes, goal);
+    return closestNumber(goal, sizes);
   }
 }
 
