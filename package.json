@@ -26,12 +26,9 @@
     "test": "npx jest"
   },
   "devDependencies": {
-    "esm": "^3.2.25",
-    "jest": "^29.6.1",
-    "jest-environment-jsdom": "^29.6.1",
-    "poops": "^1.0.10"
+    "poops": "^1.0.18"
   },
   "dependencies": {
-    "book-of-spells": "^1.0.5"
+    "book-of-spells": "^1.0.32"
   }
 }
