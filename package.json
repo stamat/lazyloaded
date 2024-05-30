@@ -1,6 +1,6 @@
 {
   "name": "lazyloaded",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lazy loading images responsively with IntersectionObserver",
   "keywords": [
     "lazyload",
