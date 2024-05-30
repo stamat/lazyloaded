@@ -4,11 +4,7 @@
   overflow: hidden;
 }
 
-.lazyloaded-image-wrap.lazyloaded--loaded .lazyloaded-image-blurred {
-  opacity: 0;
-}
-
-.lazyloaded-image-wrap .lazyloaded-image {
+.lazyloaded-image {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -21,13 +17,34 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  backface-visibility: hidden;
 }
-.lazyloaded-image-wrap .lazyloaded-image:not([data-background=true]) {
+.lazyloaded-image:not([data-background=true]) {
   width: 100%;
   height: auto;
+  object-fit: initial;
 }
 
-.lazyloaded-image-wrap .lazyloaded-image.lazyloaded--loaded {
+.lazyloaded-image-wrap .lazyloaded-image:not([data-background=true]) {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.lazyloaded-image-blurred {
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.86, 0, 0.07, 1);
+  transform: scale(1.03);
+  filter: blur(5px);
+  z-index: 1;
+  backface-visibility: hidden;
+}
+
+.lazyloaded--loaded .lazyloaded-image-blurred {
+  opacity: 0;
+}
+
+.lazyloaded-image.lazyloaded--loaded {
   opacity: 1;
 }
 
@@ -37,15 +54,11 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  transition: opacity 250ms cubic-bezier(0.86, 0, 0.07, 1);
-  opacity: 1;
   transition-delay: 350ms;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  transform: scale(1.01);
-  filter: blur(5px);
-  z-index: 1;
+  backface-visibility: hidden;
 }
 .lazyloaded-image-wrap .lazyloaded-image-blurred.image-element {
   width: 100%;
