@@ -1,7 +1,7 @@
 import { closestNumber, loadImage, isFunction } from 'book-of-spells'
 
 export class LazyLoaded {
-  constructor(selector = '.lazyloaded', callback = null, options = {}) {
+  constructor(selector = '.js-lazyloaded', callback = null, options = {}) {
     this.selector = selector
     this.px_ratio = window.hasOwnProperty('devicePixelRatio') ? window.devicePixelRatio : 1
     this.callback = callback
@@ -20,19 +20,19 @@ export class LazyLoaded {
       const trimmedLine = line.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '')
       const pts = trimmedLine.split(/[\s\uFEFF\xA0]+/g)
   
-      if (pts.length > 1) {
-        if (/x$/i.test(pts[1])) {
-          type = "ratio"
-          pts[1] = parseFloat(pts[1].replace(/x$/i, ''))
-        } else {
-          type = "size"
-          pts[1] = parseInt(pts[1].replace(/px$|vw$|w$/i, ''), 10)
-        }
-  
-        if (!Number.isNaN(pts[1])) {
-          sizes.push(pts[1])
-          map[pts[1]] = pts[0]
-        }
+      if (!pts.length > 1) continue
+      
+      if (/x$/i.test(pts[1])) {
+        type = "ratio"
+        pts[1] = parseFloat(pts[1].replace(/x$/i, ''))
+      } else {
+        type = "size"
+        pts[1] = parseInt(pts[1].replace(/px$|vw$|w$/i, ''), 10)
+      }
+
+      if (!Number.isNaN(pts[1])) {
+        sizes.push(pts[1])
+        map[pts[1]] = pts[0]
       }
     }
   
@@ -64,7 +64,7 @@ export class LazyLoaded {
       }
     
       if (isFunction(this.callback)) this.callback(elem)
-      elem.classList.add('lazyloaded--loaded')
+      elem.classList.add(`${this.selector.replace(/^\.(js\-)?/, '')}--loaded`)
     })
   }
 
@@ -73,20 +73,17 @@ export class LazyLoaded {
 
     for (const element of elements) {
       this.loadImage(element)
-
-      if (this.observer) {
-        this.observer.unobserve(element)
-      }
+      if (this.observer) this.observer.unobserve(element)
     }
   }
         
   observe(entries, observer) {
     for (const entry of entries) {
-      if (entry.isIntersecting) {
-        const elem = entry.target
-        this.loadImage(elem)
-        this.observer.unobserve(elem)
-      }
+      if (!entry.isIntersecting) continue
+
+      const elem = entry.target
+      this.loadImage(elem)
+      this.observer.unobserve(elem)
     }
   }
 
@@ -94,37 +91,24 @@ export class LazyLoaded {
     const elements = document.querySelectorAll(selector)
 
     if (!elements || !elements.length) return
-
-    if (window.hasOwnProperty('IntersectionObserver')) {
-      this.observer = this.observer || new IntersectionObserver(this.observe.bind(this), this.options)
-      for (const element of elements) {
-        this.observer.observe(element)
-      }
-    } else {
-      this.loadAll(elements)
+    if (!window.hasOwnProperty('IntersectionObserver')) return this.loadAll(elements)
+    
+    this.observer = this.observer || new IntersectionObserver(this.observe.bind(this), this.options)
+    for (const element of elements) {
+      this.observer.observe(element)
     }
   }
 
   add(elements) {
-    if (!elements.hasOwnProperty('length')) {
-      elements = [elements]
-    }
-
-    if (this.observer) {
-      for (const element of elements) {
-        this.observer.observe(element)
-      }
-    } else {
-      this.loadAll(elements)
+    if (!elements.hasOwnProperty('length')) elements = [elements]
+    if (!this.observer) return this.loadAll(elements)
+    for (const element of elements) {
+      this.observer.observe(element)
     }
   }
 
   closest(sizes, type) {
-    let goal = window.innerWidth * this.px_ratio;
-  
-    if (type === 'ratio') {
-      goal = this.px_ratio;
-    }
+    let goal = type !== 'ratio' ? window.innerWidth * this.px_ratio : this.px_ratio;
   
     return closestNumber(goal, sizes);
   }
